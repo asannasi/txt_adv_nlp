@@ -1,0 +1,2 @@
+Dependencies:
+textworld, numpy, matplotlib
