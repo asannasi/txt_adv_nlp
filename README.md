@@ -34,7 +34,7 @@ python3 src/main.py
 
 ## Results
 
-After trying numerous hyperparameters for training, the best accuracy I achieved was 38.54%. All my results can be found [here](results.md).
+After trying numerous hyperparameters for training, the best accuracy I achieved was 38.54%. All my results can be found in the graphs folder under the images folder, where it shows loss for each cycle.
 
 | Hyperparameter | Value |
 | --- | --- |
@@ -44,6 +44,8 @@ After trying numerous hyperparameters for training, the best accuracy I achieved
 | Loss Function | Binary Cross-Entropy |
 | Loss Factor | 10000 |
 | Training Cycles | 100 |
+
+<a href="url"><img src="https://github.com/asannasi/txt_adv_nlp/blob/master/images/graphs/best.png" align="center" height="300" width="500" ></a>
 
 ## Sources
 * https://arxiv.org/pdf/1705.05637.pdf
