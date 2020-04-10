@@ -1,4 +1,5 @@
-
+# This is a series of weak tests I performed while development. If I had more
+# time I would have used unit tests instead.
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -11,7 +12,9 @@ from trainer import Trainer
 from evaluator import Evaluator
 import config
 
-def encoder_test():
+# This function will run the network on small sample data
+def encoder_decoder_test():
+    # Run the encoder
     c = ["hi", "bye", "no"]
     e = Encoder(len(c), 100, 100)
     param = e.parameters()
@@ -29,11 +32,13 @@ def encoder_test():
         optimi.step()
         losses.append(K)
         print(K)
+    # Plot the results
     plt.figure()
     plt.plot(losses)
     print(o1[0].size())
     print(o1[0][0])
 
+    # Check the loss function
     loss = nn.CrossEntropyLoss()
     input = torch.randn(3, 5, requires_grad=True)
     target = torch.empty(3, dtype=torch.long).random_(5)
@@ -43,6 +48,7 @@ def encoder_test():
     print(target)
     print(output)
 
+    # Run the decoder
     c = ["1","hi", "bye", "no"]
     dec = Decoder(len(c),100, 100)
     param = dec.parameters()
@@ -51,6 +57,7 @@ def encoder_test():
     encoder_state = (o1, o1)
     hidden = encoder_state[0]
     context = encoder_state[1]
+    # Check predictions
     predictions = []
     prev_word = torch.tensor(c.index("1"), device=config.device)
     for i in range(1,len(ans.split(" "))):
@@ -61,6 +68,8 @@ def encoder_test():
         predictions.append(output)
     pred = predictions
     print(pred)
+
+    # Check gradients
     target = torch.zeros(len(c), dtype=torch.float32, device=config.device)
     target[2] = 1
     torch.log(pred[0][0])
@@ -73,6 +82,7 @@ def encoder_test():
     M.backward(retain_graph=True)
     optimi.step()
 
+# Test trainer class for training the network
 def train_test():
     td = make_training_game_data(config.data_file, config.noun_file,\
         config.verb_file, config.prepos_file)
@@ -86,6 +96,7 @@ def train_test():
     for i in range(0, 300):
         t = t.train(d, a)
 
+# Test trainer class for training the network with a different loss function
 def train_test_cross():
     td = make_training_game_data(config.data_file, config.noun_file,\
         config.verb_file, config.prepos_file)
@@ -103,6 +114,7 @@ def train_test_cross():
     t.train(d,a)
     return t
 
+# Check if the evaluator works on a small test set
 def eval_test1(t):
     td = make_training_game_data(config.data_file, config.noun_file,\
         config.verb_file, config.prepos_file)
@@ -112,6 +124,7 @@ def eval_test1(t):
     print(td.descriptions[1])
     print(p)
 
+# Check if the evaulator works on a large test set
 def eval_test2(t):
     td = make_training_game_data(config.data_file, config.noun_file,\
         config.verb_file, config.prepos_file)
@@ -120,6 +133,7 @@ def eval_test2(t):
     o = e.evaluate(test_data)
     print(o)
 
+# Run all tests
 def main():
     encoder_test()
     train_test()

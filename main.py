@@ -1,3 +1,5 @@
+# This is the main function that will run the LSTM network on the data files
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -10,7 +12,9 @@ from decoder import Decoder
 from trainer import Trainer
 from evaluator import Evaluator
 
-def hyperparams():
+# This function will run multiple configurations of the neural network and 
+# output graphs after each one has completed for comparison.
+def main():
     print("This is the baseline ratio I am going to use")
     
     print("The vocab dim is length of the corpus.")
@@ -126,7 +130,8 @@ def hyperparams():
     print("RATIO: ", ratio2)
     print("*****")
     
-    print("Now with the loss function BCE and 100 cycles and learning rate of 0.0001 and loss factor of 100000")
+    print("Now with the loss function BCE and 100 cycles and learning rate of"\
+            " 0.0001 and loss factor of 100000")
     t2 = Trainer(1, 1, len(c), 30, 100, 0.001, "bce", 100000, train_data.corpus)
     for i in range(0, 100):
         t2 = t2.train(d, a)
@@ -140,7 +145,9 @@ def hyperparams():
     print("RATIO: ", ratio2)
     print("*****")
     
-    print("Now embedding dim is 100, hidden dim is 1000, learning rate is 0.001, loss function is bce, the loss is multiplied by a factor of 10000, and training for 100 cycles")
+    print("Now embedding dim is 100, hidden dim is 1000, learning rate is "\
+          "0.001, loss function is bce, the loss is multiplied by a factor of "\
+          "10000, and training for 100 cycles")
     t2 = Trainer(1, 1, len(c), 100, 1000, 0.001, "bce", 10000, train_data.corpus)
     for i in range(0, 100):
         t2 = t2.train(d, a)
@@ -153,27 +160,6 @@ def hyperparams():
     plt.show()
     print("RATIO: ", ratio2)
     print("*****")
-    
-print("Starting...")
-hyperparams()
 
-print("Starting")
-def best():
-    train_data = make_training_game_data("data4.txt", "nouns4.txt", "verbs4.txt", "prepos4.txt")
-    c = train_data.corpus
-    d = train_data.descriptions
-    a = train_data.answers
-    print("Now with the loss function BCE and 100 cycles")
-    t2 = Trainer(1, 1, len(c), 30, 100, 0.001, "bce", 10000, train_data.corpus)
-    for i in range(0, 100):
-        t2 = t2.train(d, a)
-        
-    e = Evaluator(t2)
-    test_data = make_test_game_data(train_data.corpus, "data2.txt")
-    ratio2 = e.evaluate(test_data)
-    plt.figure()
-    plt.plot(t2.curr_losses)
-    plt.show()
-    print("RATIO: ", ratio2)
-    print("*****")
-best()
+if __name__ == "__main__":
+    main();

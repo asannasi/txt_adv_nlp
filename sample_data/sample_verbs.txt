@@ -1,0 +1,1 @@
+close drop eat examine go insert inventory lock look open put take unlock

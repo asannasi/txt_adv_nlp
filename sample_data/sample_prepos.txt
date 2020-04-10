@@ -1,0 +1,1 @@
+close close drop eat examine examine examine go east go north go south go west insert into inventory lock with lock with look open open put on take take from take from unlock with unlock with
