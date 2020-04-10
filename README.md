@@ -6,7 +6,7 @@ This is a final project from Fall 2018 that I proposed and developed based on a 
 ## Project Description
 The goal of my project was to design a neural network that could play text adventure games. Text adventure games are games where a description of what is happening is provided via text. For example, a starting scenario could be “You are trapped in a room. There is a key on the table.” To progress in the game, the player would have to input commands such as “take key” or “unlock door”. Since all gameplay is done via text, I thought it would be the perfect way to learn about natural language processing.
 
-Instead of creating a fully autonomous agent that could play text adenture games all by itself, I simplfied my goal into parsing the instructions scraped from the generated game and predicting the correct commands. I viewed this as a translation problem, so I decided to apply an encoder-decoder neural network.
+Instead of creating a fully autonomous agent that could play text adenture games all by itself, I simplfied my goal into parsing the instructions scraped from the generated game and predicting the correct commands. I viewed this as a translation problem, so I decided to apply an encoder-decoder LSTM neural network.
 
 ## Project Implementation Details
 
@@ -46,6 +46,17 @@ After trying numerous hyperparameters for training, the best accuracy I achieved
 | Training Cycles | 100 |
 
 <a href="url"><img src="https://github.com/asannasi/txt_adv_nlp/blob/master/images/graphs/best.png" align="center" height="300" width="500" ></a>
+
+Here is a sample result from my best trained model:
+
+![](images/sample_result.png)
+
+## Future Extensions
+
+1. Implement a decoder with attention built in. The OOP in my code would make this easy to incorporate.
+2. Use pretrained word2vec embedding weights so that my synonyms are more accurate
+3. Change the number of layers in my LSTM’s. Currently, I’m using one layer, but maybe my accuracy will improve if I use more. It might also increase if I use bidirectional LSTM’s. 
+4. Using a bigram model. A lot of commands are phrases in the form of “take item.” With a bigram model, the network can differentiate between nouns and verbs and construct phrases. Outputs like “take take” would become less likely. 
 
 ## Sources
 * https://arxiv.org/pdf/1705.05637.pdf
